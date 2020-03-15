@@ -21,7 +21,8 @@ const getAllHTML = async (numberOfPosts) => {
     //maps getPageHTML func on each element of PagesArray [1, 2, 3, 4,...]
     .then(htmls => htmls.join(''))   // one joined html for all pages
 }
-// Using cheerio: get post’s title, uri, author, points, comments and rank from the html retrieved. Finish off by pushing the post’s object to results array only for the number of posts required.
+// Using cheerio extract post’s title, uri, author, points, comments and rank from the html retrieved. 
+// Finish off by pushing the post’s object to results array only for the number of posts required.
 const getPosts = (html, posts) => {
   let results = []
   let $ = cheerio.load(html)
@@ -37,7 +38,7 @@ const getPosts = (html, posts) => {
     let author = $(subtext).eq(1).text()
     let points = $(subtext).eq(0).text()
     let comments = $(subtext).eq(5).text()
-
+// create .JSON structure
     let obj = {
        title: checkInput(title),
        uri: checkURI(uri),
@@ -56,7 +57,7 @@ const getPosts = (html, posts) => {
   }
 }
 
-// hackernews --posts n     // hackernews -p 2
+// hackernews --posts n     // hackernews -p 40
 program
   .option('-p, --posts [value]', 'Number of posts', 30)
   .action(args =>
@@ -66,7 +67,7 @@ program
 
 program.parse(process.argv)
 
-// Function Validations:
+// Remember to validate the .JSON structure:
 
 const checkInput = (input) => {
   if (input.length > 0 && input.length < 256){
@@ -75,7 +76,7 @@ const checkInput = (input) => {
     return input.substring(0,253)+"...";
   }
 }
-
+// using to regular expression for pattern matching validation
 const checkURI = (uri) => {
   let regex = /(^(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?)/
   if (regex.test(uri)){
@@ -84,7 +85,7 @@ const checkURI = (uri) => {
     return "uri not valid"
   }
 }
-
+// validation ensures points is not less than zero
 const checkPoints = (points) => {
   if (parseInt(points) <= 0) {
     return 0
