@@ -1,0 +1,22 @@
+{
+  "name": "tl_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "commander": "^5.0.0",
+    "node-fetch": "^2.6.0"
+  },
+  "bin": {
+    "hackernews": "./server.js"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
